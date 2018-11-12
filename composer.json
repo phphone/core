@@ -1,0 +1,26 @@
+{
+    "name": "phphone/core",
+    "description": "The core of a framework for phone system development with Asterisk, PHP and ARI.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mike Knooihuisen",
+            "email": "mike@simplysolutionscoding.com"
+        }
+    ],
+    "require": {
+        "wormling/phparia": "dev-master",
+        "phpunit/phpunit": "^7.4"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+
+    "autoload": {
+      "psr-0": {
+        "PHPhone\\Core": "src/"
+      },
+      "files": [
+        "src/PHPhone/Core/functions.php"
+      ]
+    }
+}
