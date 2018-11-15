@@ -18,9 +18,6 @@
     "autoload": {
       "psr-0": {
         "PHPhone\\Core": "src/"
-      },
-      "files": [
-        "src/PHPhone/Core/functions.php"
-      ]
+      }
     }
 }
