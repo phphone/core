@@ -8,12 +8,11 @@ namespace PHPhone\Core\Speech;
 
 
 use GuzzleHttp\Client;
-use PHPhone\PHPhone\Speech\VoiceRSS;
 
 class VoiceRSSDriver extends TTSDriver
 {
 
-	public function getVoices()
+	public static function getVoices()
 	{
 		return [
 			"en-us", "ca-es", "zh-cn", "zh-hk", "zh-tw", "da-dk",
@@ -24,28 +23,47 @@ class VoiceRSSDriver extends TTSDriver
 		];
 	}
 
-	public function getDefaultVoice()
+	public static function getDefaultVoice()
 	{
 		return "en-us";
 	}
 
-	public function getKey()
+	public static function getKey()
 	{
 		return "voicerss";
 	}
 
 	public function request($filename, $text, $voice)
 	{
-		return $this->speech([
-			'key' => env("VR_KEY"),
-			'hl' => $voice,
-			'src' => $text,
-			'r' => '0',
-			'c' => 'mp3',
-			'f' => '44khz_16bit_stereo',
-			'ssml' => 'false',
-			'b64' => 'false'
-		]);
+		$key = env("VOICERSS_KEY");
+
+		if($key === false) {
+			throw new \Exception("VoiceRSS API Key missing.  Set it in .env");
+			return false;
+		}
+
+		try {
+			$audio = $this->speech([
+				'key' => $key,
+				'hl' => $voice,
+				'src' => $text,
+				'r' => '0',
+				'c' => 'wav',
+				'f' => '44khz_16bit_stereo',
+				'b64' => 'false'
+			]);
+		} catch (\GuzzleHttp\Exception\GuzzleException $exception) {
+			logger()->error("VOICERSS API request Failed!");
+			logger()->error($exception->getMessage());
+			return false;
+		}
+
+
+		$file = env("ASTERISK_SOUNDS_DIR", '/var/lib/asterisk/sounds');
+		$file .= '/' . explode('-', $voice)[0] . '/' . $filename . '.wav';
+		file_put_contents($file, $audio);
+
+		return true;
 
 	}
 

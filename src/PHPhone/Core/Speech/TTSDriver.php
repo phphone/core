@@ -7,7 +7,7 @@
 namespace PHPhone\Core\Speech;
 
 
-abstract class TTSDriver
+abstract class TTSDriver implements TTSInterface
 {
 	protected $filename, $text, $voice;
 
@@ -37,28 +37,7 @@ abstract class TTSDriver
 		return $result;
 	}
 
-	/**
-	 * @param string $filename the file name to save to
-	 * @param string $text to speak
-	 * @param string $voice the voice to use
-	 * @return bool true on success, else false
-	 */
-	abstract function request($filename, $text, $voice);
 
-	/**
-	 * @return string the default voice for the driver
-	 */
-	abstract function getDefaultVoice();
-
-	/**
-	 * @return array all available voices for the driver
-	 */
-	abstract function getVoices();
-
-	/**
-	 * @return string the key used to identify this driver in commands
-	 */
-	abstract function getKey();
 
 	/**
 	 * @param string $filename the desired filename to save to
