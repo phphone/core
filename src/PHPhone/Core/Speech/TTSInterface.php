@@ -33,4 +33,9 @@ interface TTSInterface
 	 */
 	public static function getKey();
 
+	/**
+	 * @return bool whether or not SSML is supported by this driver.
+	 */
+	public static function supportsSSML();
+
 }

@@ -10,7 +10,8 @@
     ],
     "require": {
         "wormling/phparia": "dev-master",
-        "phpunit/phpunit": "^7.4"
+        "phpunit/phpunit": "^7.4",
+        "symfony/process": "^4.2"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

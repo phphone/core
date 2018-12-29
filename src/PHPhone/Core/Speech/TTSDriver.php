@@ -28,7 +28,6 @@ abstract class TTSDriver implements TTSInterface
 		$result = $this->request($filename, $text, $voice);
 
 		if($result) {
-			//TODO: MOdule reload sounds
 		} else {
 			logger()->error("Could not generate audio file.");
 			throw new \Exception("Could not generate audio file.");
